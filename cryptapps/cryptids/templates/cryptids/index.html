@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cryptids index</title>
+</head>
+<body>
+  {% if user.is_authenticated %}
+    <h1>Cryptids record</h1>
+    <h2>Here is a list of all the recorded cryptids in the app:</h2>
+    {% if cryptids_list %} <!-- If else in case there is no cryptids -->
+        <ul>
+        {% for cryptid in cryptids_list %} <!--Displays a list of all the cryptids registered in the app -->
+            <li><a href="{% url 'cryptids:detail' cryptid.id %}">{{ cryptid.cryptid_name }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No cryptid registered yet.</p>
+    {% endif %}
+    <p><a href="{% url 'logout' %}">Log Out</a></p> <!-- Log out button -->
+    <p><a href="{% url 'password_reset' %}">Reset Password</a></p> <!-- Password reset button -->
+  {% else %}
+    <p>You are not logged in</p>
+    <a href="{% url 'login' %}">Log In</a>
+  {% endif %}
+</body>
+</html>
